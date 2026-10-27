@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Special Surprise 💜</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<!-- =================================
+     1. JOB APPLICATION FORM
+================================== -->
+
+<section id="applicationPage">
+
+  <header class="app-header">
+    <div class="brand">✦ DREAM<span>WORKS</span></div>
+    <nav class="app-nav">
+      <span>Home</span>
+      <span>Careers</span>
+      <span>About Us</span>
+    </nav>
+  </header>
+
+  <div class="app-hero">
+    <div class="eyebrow">Careers · Your next chapter</div>
+    <h1>Discover your next opportunity.</h1>
+    <p>
+      We believe every great journey begins with one small step.
+      Tell us a little about yourself by completing the application below.
+    </p>
+  </div>
+
+  <form id="applicationForm" class="application-card">
+
+    <div class="card-heading">
+      <h2>Job Application Form</h2>
+      <p>Please complete the required fields before submitting.</p>
+    </div>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label for="fullName">Full Name *</label>
+        <input id="fullName" name="fullName"
+          type="text" placeholder="Enter your full name"
+          autocomplete="name" required>
+      </div>
+
+      <div class="field">
+        <label for="email">Email Address *</label>
+        <input id="email" name="email"
+          type="email" placeholder="Enter your email"
+          autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone Number *</label>
+        <input id="phone" name="phone"
+          type="tel" placeholder="Enter your phone number"
+          autocomplete="tel" required>
+      </div>
+
+      <div class="field">
+        <label for="dob">Date of Birth *</label>
+        <input id="dob" name="dob" type="date" required>
+      </div>
+
+      <div class="field">
+        <label for="qualification">Highest Qualification *</label>
+        <select id="qualification" name="qualification" required>
+          <option value="">Select qualification</option>
+          <option>School Education</option>
+          <option>Diploma</option>
+          <option>Undergraduate Degree</option>
+          <option>Postgraduate Degree</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="location">Current Location *</label>
+        <input id="location" name="location"
+          type="text" placeholder="City or town" required>
+      </div>
+
+      <div class="field full">
+        <label for="role">Preferred Opportunity *</label>
+        <select id="role" name="role" required>
+          <option value="">Select an opportunity</option>
+          <option>Creative & Design</option>
+          <option>Technology</option>
+          <option>Business & Management</option>
+          <option>Communications</option>
+          <option>Something Extraordinary</option>
+        </select>
+      </div>
+
+      <div class="field full">
+        <label for="about">Tell us about yourself *</label>
+        <textarea id="about" name="about"
+          placeholder="Share a little about your interests and aspirations..."
+          required></textarea>
+      </div>
+
+    </div>
+
+    <label class="consent">
+      <input type="checkbox" id="consent" required>
+      <span>
+        I confirm that the information entered above is correct.
+        I understand that this is a personal interactive experience,
+        not an actual job application.
+      </span>
+    </label>
+
+    <button class="primary-btn submit-btn" type="submit">
+      Submit Application →
+    </button>
+
+  </form>
+
+  <footer class="app-footer">
+    © 2026 DreamWorks Experience · A little opportunity, a lot of magic.
+  </footer>
+
+</section>
+
+<!-- =================================
+     2. SUBMISSION SUCCESS
+================================== -->
+
+<section id="successPage" class="hidden">
+  <div class="success-box">
+    <div class="checkmark">✓</div>
+    <h2>Application Submitted Successfully!</h2>
+    <p>
+      Thank you for taking the time to complete the form.
+      Something special is waiting for you.
+    </p>
+    <button class="primary-btn" id="continueBtn">
+      Continue →
+    </button>
+  </div>
+</section>
+
+<!-- =================================
+     3. FIREWORK EXPERIENCE
+================================== -->
+
+<section id="fireworkScene" class="hidden">
+  <canvas id="fireworkCanvas"></canvas>
+
+  <div class="firework-message" id="fireworkMessage">
+    <h1>Happy birthday maa kuchi mudi💌 </h1>
+    <h2>A Little Magic, Just for You 💜</h2>
+    <p>Some people make the whole universe feel beautiful.</p>
+  </div>
+
+  <img id="revealPhoto" class="reveal-photo"
+    src="assets/heart-photo.jpg"
+    alt="Our special memory">
+
+  <div id="photoCaption" class="photo-caption">
+    My favourite memory will always have you in it. 💖
+  </div>
+
+  <div class="firework-actions">
+    <button class="primary-btn hidden" id="exploreBtn">
+      Discover Our Memories ↓
+    </button>
+  </div>
+</section>
+
+<!-- =================================
+     4. MAIN ROMANTIC WEBSITE
+================================== -->
+
+<div id="surprisePage" class="hidden">
+
+  <header class="site-header">
+    <div class="site-logo">Our <span>Little Universe ✦</span></div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#memories">Memories</a>
+      <a href="#videos">Videos</a>
+      <a href="#littleThings">Little Things</a>
+      <a href="#secret">Secret</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+
+  <section class="section hero-section" id="home">
+    <div class="pill">✦ MADE WITH LOVE ✦</div>
+
+    <h1>Somewhere in this universe,<br>
+      <span class="gradient-text">you became my favourite.</span>
+    </h1>
+
+    <p>
+      Sila per namma life-la varumbothu, namakku theriyama
+      namma ulagam azhaga maaridum.
+      Enakku andha azhagana ulagam nee. 💜
+    </p>
+
+    <a href="#memories" class="primary-btn"
+      style="text-decoration:none;display:inline-block">
+      Explore Our Memories ↓
+    </a>
+  </section>
+
+  <!-- MEMORIES -->
+
+  <section class="section" id="memories">
+
+    <h2 class="section-title">
+      Our Beautiful <span class="gradient-text">Memories</span>
+    </h2>
+
+    <p class="section-subtitle">
+      Sila moments photo-va mattum irukkum.
+      Aana athoda feelings namma manasula endrum irukkum. ❤️
+    </p>
+
+    <div class="gallery">
+
+      <article class="memory-card">
+        <img src="assets/memory1.jpg"
+          alt="Our first memory" loading="lazy">
+        <div class="caption">
+          <h3>Our First Memory ✨</h3>
+          <p>
+            Antha naaloda azhagai vida,
+            antha naal enakku kodutha ninaivugal azhagaanavai.
+          </p>
+        </div>
+      </article>
+
+      <article class="memory-card">
+        <img src="assets/memory2.jpg"
+          alt="A beautiful day together" loading="lazy">
+        <div class="caption">
+          <h3>A Beautiful Day 🌸</h3>
+          <p>
+            Periya santhosham thevai illa.
+            Sila neram nee pakkathula iruntha pothum.
+          </p>
+        </div>
+      </article>
+
+      <article class="memory-card">
+        <img src="assets/memory3.jpg"
+          alt="A special moment" loading="lazy">
+        <div class="caption">
+          <h3>A Moment to Keep 💫</h3>
+          <p>
+            Neram kadanthu pogalaam.
+            Aana sila ninaivugal endrum pudhusa irukkum.
+          </p>
+        </div>
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- VIDEOS -->
+
+  <section class="section" id="videos">
+
+    <h2 class="section-title">
+      Our <span class="gradient-text">Little Movies</span> 🎬
+    </h2>
+
+    <p class="section-subtitle">
+      Photos oru nodiyai ninaivupaduthum.
+      Videos andha nodiyai marubadiyum vaazha vaikkum.
+    </p>
+
+    <div class="video-grid">
+
+      <article class="video-card">
+        <video controls playsinline preload="metadata"
+          poster="assets/memory1.jpg">
+          <source src="assets/video1.mp4" type="video/mp4">
+          Your browser does not support video.
+        </video>
+        <h3>One of Our Favourite Days</h3>
+        <p>Thirumba thirumba paarkka thonra oru azhagana memory. 💜</p>
+      </article>
+
+      <article class="video-card">
+        <video controls playsinline preload="metadata"
+          poster="assets/memory2.jpg">
+          <source src="assets/video2.mp4" type="video/mp4">
+          Your browser does not support video.
+        </video>
+        <h3>A Memory That Stays</h3>
+        <p>Indha moments ellam namma story-oda azhagana pages. ✨</p>
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- LITTLE THINGS -->
+
+  <section class="section" id="littleThings">
+
+    <h2 class="section-title">
+      Little Buttons, <span class="gradient-text">Big Feelings</span> 💌
+    </h2>
+
+    <p class="section-subtitle">
+      Ovvoru button-kullayum oru chinna surprise irukku.
+      Unakku pidicha button-ai click pannu.
+    </p>
+
+    <div class="button-grid">
+
+      <button class="memory-button"
+        data-type="letter">
+        <span class="icon">💌</span>
+        <strong>Open My Letter</strong>
+        <small>Words from my heart</small>
+      </button>
+
+      <button class="memory-button"
+        data-type="photo">
+        <span class="icon">📸</span>
+        <strong>Our Best Moment</strong>
+        <small>A memory worth keeping</small>
+      </button>
+
+      <button class="memory-button"
+        data-type="remember">
+        <span class="icon">🥹</span>
+        <strong>Remember This?</strong>
+        <small>A little trip down memory lane</small>
+      </button>
+
+      <button class="memory-button"
+        data-type="song">
+        <span class="icon">🎵</span>
+        <strong>Our Song</strong>
+        <small>Play our special music</small>
+      </button>
+
+      <button class="memory-button"
+        data-type="promise">
+        <span class="icon">❤️</span>
+        <strong>A Little Promise</strong>
+        <small>Something meaningful</small>
+      </button>
+
+      <button class="memory-button"
+        data-type="date">
+        <span class="icon">🌙</span>
+        <strong>Our Special Moments</strong>
+        <small>Little things, forever memories</small>
+      </button>
+
+    </div>
+
+    <div id="memoryResult" class="memory-result hidden"
+      aria-live="polite"></div>
+
+  </section>
+
+  <!-- SECRET MESSAGE -->
+
+  <section class="section" id="secret">
+
+    <h2 class="section-title">
+      One Last <span class="gradient-text">Little Secret</span> 🔐
+    </h2>
+
+    <p class="section-subtitle">
+      Inga oru message irukku.
+      Adhai open panna unakku oru secret password theriyanum. 💜
+    </p>
+
+    <div class="secret-box">
+
+      <div class="secret-lock">🔐</div>
+
+      <h3>A Message Just for You</h3>
+
+      <p>
+        There is something special waiting behind this little lock.
+      </p>
+
+      <form id="passwordForm">
+        <input id="passwordInput" type="password"
+          placeholder="Enter your secret password"
+          autocomplete="off" required>
+
+        <button class="primary-btn" type="submit"
+          style="width:100%">
+          Unlock My Message ✨
+        </button>
+      </form>
+
+      <p id="passwordError" class="hidden"
+        style="color:#ff9bcf;margin-top:15px">
+        Not quite right. Try again! 💜
+      </p>
+
+      <div id="secretMessage" class="secret-message hidden">
+        <h3>You Mean More Than Words Can Say ❤️</h3>
+
+        <p>
+          Unna pathi solla enakku niraya vaarthaigal irukku.
+          Aana sila feelings-ai vaarthaigalaala mattum
+          solli mudikka mudiyathu.
+
+          <br><br>
+
+          En life-la nee irukkura idam romba special.
+          Indha ulagathula ethana azhagana vishayangal irunthalum,
+          enakku mukkiyamaana sila ninaivugal-la nee kandippa iruppa.
+
+          <br><br>
+
+          Indha chinna surprise unakku oru smile koduthiruntha,
+          athuve enakku romba special. 💜
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FINAL SURPRISE -->
+
+  <section class="section final-section">
+
+    <div class="pill">A LITTLE WISH FROM MY HEART ✦</div>
+
+    <h2>Happy Birthday,<br>My Favourite Person <span class="heart">♥</span></h2>
+
+    <p>
+      Un vaazhkai azhagana santhoshangalal niraiyanum.
+      Un kanavugal ovvondrum nijamaaganum.
+      Nee eppovum sirichitte irukkanum.
+
+      <br><br>
+
+      Indha ulagathula ethana stars irunthalum,
+      enakku special-ah theriyura oru star nee. ✨
+
+      <br><br>
+
+      <strong>Unakku endrum azhagana naatkal kidaikka vaazhthukkal. 💖</strong>
+    </p>
+
+    <button class="primary-btn" id="replayBtn">
+      Relive the Surprise ✨
+    </button>
+
+  </section>
+
+  <footer class="site-footer">
+    Made with love, one memory at a time. 💜
+  </footer>
+
+</div>
+
+<!-- AUDIO FILES -->
+
+<audio id="whistleSound" preload="auto">
+  <source src="assets/whistle.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="explosionSound" preload="auto">
+  <source src="assets/explosion.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="birthdayMusic" preload="auto" loop>
+  <source src="assets/song.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js" defer></script>
+</body>
+</html>
