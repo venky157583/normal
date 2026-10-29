@@ -3,29 +3,22 @@
 ================================== */
 
 const SETTINGS = {
-  password: "CHANGE_ME",
+  password: "kuchu mudi",
 
   photoCaption:
     "My favourite memory will always have you in it. 💖",
 
-  letter:
-    "Unna pathi ninaikkumbothu enakku varra santhoshathai " +
-    "sila vaarthaigal-la solla mudiyathu. " +
-    "Indha chinna surprise unakku special-ah irukkanum. 💜",
-
   remember:
-    "Sila moments namakku appo normal-ah theriyalaam. " +
-    "Aana konja naal kazhichu ninaichu paarkkumbothu, " +
-    "avanga dhaan namma favourite memories aagidum. ✨",
+    "intha porul niyabgam irukama nee enta aasa pattu " +
+    "keta kandipa oru naal vangi tharuven maaa " +
+    "vangi thanthi uh head la vachi alagu pakanum ✨",
 
   promise:
-    "Un feelings-ai madhikkavum, un santhoshathai celebrate " +
-    "pannavum, unakku nalla memories create aagavum " +
-    "naan eppovum virumburen. ❤️",
+    "ne ennoda kaila intha bracelet ah farwell day annaiku  " +
+    "maativittama kandipa ini itha kalatave maten " +
+    "little suggestion," +
+     "theriyama kalanthuta return nee maati vidunama kuchi mudi pls  (fun)",
 
-  date:
-    "Calendar-la irukkura dates mattum illa; " +
-    "namakku special-ah irukkura ovvoru naalum oru memory dhaan. 🌙"
 };
 
 
@@ -44,6 +37,49 @@ const photoCaption = document.getElementById("photoCaption");
 const whistleSound = document.getElementById("whistleSound");
 const explosionSound = document.getElementById("explosionSound");
 const birthdayMusic = document.getElementById("birthdayMusic");
+/* ==================================
+VIDEO PLAY - BACKGROUND MUSIC CONTROL
+================================== */
+
+const memoryVideos = document.querySelectorAll("#videos video");
+const activeVideos = new Set();
+let resumeBirthdayMusic = false;
+
+memoryVideos.forEach(video => {
+video.addEventListener("play", () => {
+if (activeVideos.size === 0) {
+resumeBirthdayMusic =
+birthdayMusic &&
+!birthdayMusic.paused &&
+!birthdayMusic.ended;
+
+  if (birthdayMusic) {
+    birthdayMusic.pause();
+  }
+}
+
+activeVideos.add(video);
+
+});
+
+function handleVideoStop() {
+activeVideos.delete(video);
+
+if (activeVideos.size === 0 && resumeBirthdayMusic) {
+  resumeBirthdayMusic = false;
+
+  if (birthdayMusic) {
+    birthdayMusic.play().catch(() => {
+      console.info("Music resume requires user interaction.");
+    });
+  }
+}
+
+}
+
+video.addEventListener("pause", handleVideoStop);
+video.addEventListener("ended", handleVideoStop);
+});
 
 
 /* ==================================
@@ -349,75 +385,93 @@ document.getElementById("exploreBtn")
 
 const memoryResult = document.getElementById("memoryResult");
 
-document.querySelectorAll(".memory-button")
-.forEach(button => {
+const buttonMemories = {
+  letter: {
+    title: "💌 A Letter from My Heart",
+    image: "assets/letter.jpg",
+    text: SETTINGS.letter
+  },
+
+  photo: {
+    title: "📸 One of My Favourite Moments",
+    image: "assets/bestmoment.jpg",
+    text: "Indha photo oru memory mattum illa. Enakku romba special-ah irukkura oru moment. 💜"
+  },
+
+  remember: {
+    title: "🥹 Remember This?",
+    image: "assets/remember.jpg",
+    text: SETTINGS.remember
+  },
+
+  promise: {
+    title: "❤️ A Little Promise",
+    image: "assets/promise.jpg",
+    text: SETTINGS.promise
+     },
+
+  collegelast: {
+  title: "💫 One Last Time",
+  image: "assets/onelasttime.jpg",
+  text: "Intha memories namakku eppovume special. One last time, indha beautiful moments-ah nenachu paaru. 💜"
+},
+ 
+};
+
+document.querySelectorAll(".memory-button").forEach(button => {
   button.addEventListener("click", function() {
     const type = this.dataset.type;
+    const memory = buttonMemories[type];
 
+    if (!memory) return;
+
+    memoryResult.replaceChildren();
     memoryResult.classList.remove("hidden");
 
-    if (type === "letter") {
-      memoryResult.innerHTML = `
-        <h3>💌 A Letter from My Heart</h3>
-        <p>${escapeHTML(SETTINGS.letter)}</p>
-      `;
-    }
+    const image = document.createElement("img");
+    image.src = memory.image;
+    image.classList.toggle(
+  "full-view-photo",
+  type === "remember" || type === "collegelast"
+);
+    image.alt = memory.title;
+    image.loading = "lazy";
 
-    if (type === "photo") {
-      memoryResult.innerHTML = `
-        <img src="assets/memory1.jpg" alt="Special memory">
-        <h3>📸 One of My Favourite Moments</h3>
-        <p>
-          Indha photo oru memory mattum illa.
-          Enakku romba special-ah irukkura oru moment. 💜
-        </p>
-      `;
-    }
+    image.onerror = function() {
+      this.classList.add("hidden");
+    };
 
-    if (type === "remember") {
-      memoryResult.innerHTML = `
-        <h3>🥹 Remember This?</h3>
-        <p>${escapeHTML(SETTINGS.remember)}</p>
-      `;
-    }
+    memoryResult.appendChild(image);
+
+    const heading = document.createElement("h3");
+    heading.textContent = memory.title;
+    memoryResult.appendChild(heading);
+
+    const paragraph = document.createElement("p");
+    paragraph.textContent = memory.text;
+    memoryResult.appendChild(paragraph);
 
     if (type === "song") {
-      memoryResult.innerHTML = `
-        <h3>🎵 Our Special Song</h3>
-        <p>
-          Indha song unakku oru special memory-ai
-          ninaivupaduthattum. 💖
-        </p>
+      const playButton = document.createElement("button");
+      playButton.className = "primary-btn";
+      playButton.textContent = "Play Music ♫";
 
-        <button class="primary-btn" id="playSongButton">
-          Play Music ♫
-        </button>
+      playButton.addEventListener("click", () => {
+        playAudio(birthdayMusic);
+      });
 
-        <button class="primary-btn" id="pauseSongButton"
-          style="margin-left:8px;background:#57327e">
-          Pause
-        </button>
-      `;
+      const pauseButton = document.createElement("button");
+      pauseButton.className = "primary-btn";
+      pauseButton.textContent = "Pause Music";
+      pauseButton.style.marginLeft = "8px";
+      pauseButton.style.background = "#57327e";
 
-      document.getElementById("playSongButton")
-        .addEventListener("click", () => playAudio(birthdayMusic));
+      pauseButton.addEventListener("click", () => {
+        if (birthdayMusic) birthdayMusic.pause();
+      });
 
-      document.getElementById("pauseSongButton")
-        .addEventListener("click", () => birthdayMusic.pause());
-    }
-
-    if (type === "promise") {
-      memoryResult.innerHTML = `
-        <h3>❤️ A Little Promise</h3>
-        <p>${escapeHTML(SETTINGS.promise)}</p>
-      `;
-    }
-
-    if (type === "date") {
-      memoryResult.innerHTML = `
-        <h3>🌙 Our Special Moments</h3>
-        <p>${escapeHTML(SETTINGS.date)}</p>
-      `;
+      memoryResult.appendChild(playButton);
+      memoryResult.appendChild(pauseButton);
     }
 
     memoryResult.scrollIntoView({
@@ -426,7 +480,6 @@ document.querySelectorAll(".memory-button")
     });
   });
 });
-
 
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, char => ({
@@ -545,3 +598,306 @@ createStars();
 drawStars();
 
 window.addEventListener("resize", createStars);
+/* =========================================
+CONSTELLATION OF MEMORIES - JAVASCRIPT
+========================================= */
+
+(function initConstellation() {
+const galaxy = document.getElementById("constellationMemories");
+
+// Section HTML-la add pannala na existing website-ai affect panna vendam.
+if (!galaxy) return;
+
+const canvas = document.getElementById("constellationCanvas");
+const ctx = canvas.getContext("2d");
+
+const stars = [...galaxy.querySelectorAll(".memory-star")];
+
+const popup = document.getElementById("constellationPopup");
+const popupTitle = document.getElementById("constellationPopupTitle");
+const popupText = document.getElementById("constellationMemoryText");
+const popupImage = document.getElementById("constellationMemoryImage");
+
+const closeButton = document.getElementById("closeConstellationPopup");
+const nextButton = document.getElementById("nextConstellationMemory");
+
+const progress = document.getElementById("starsCollected");
+const result = document.getElementById("constellationResult");
+const instruction = document.getElementById("galaxyInstruction");
+
+/*
+CUSTOMIZE YOUR MEMORIES HERE.
+
+Image paths:
+assets/memory1.jpg
+assets/memory2.jpg
+assets/memory3.jpg
+
+Ungaloda photos use panna, indha file names-ai
+unga actual photo file names-ku match pannunga.
+*/
+
+const memories = [
+  {
+    title: "A Beautiful Beginning 🌱",
+    text: "Every beautiful story begins with a little moment.intha sympol tha na first aasa pattu keta pic 💜",
+    image: "assets/memory1.jpg"
+  },
+  {
+    title: "Little Moments ✨",
+    text: "intha  hair paathuthan na unna kuchi mudiney name vachen. ❤️",
+    image: "assets/memory2.jpg"
+  },
+  {
+    title: "A Favourite Memory 📸",
+    text: "Indha photo oru memory... namma internship la happy ah irunthatha sollum 💖",
+    image: "assets/memory3.jpg"
+  },
+  {
+    title: "A Wish for You 💌",
+    text: "unaku na first birthday gift ah kuduthuma, ithuku oru porattam nadanthathu maraka maten maa ✨",
+    image: "assets/memory4.jpg"
+  },
+  {
+    title: "Our Little Universe 🌌",
+    text: "namma orey team eh RCB eesala illa, cup eppomey namakuthan 💜",
+    image: "assets/memory5.jpg"
+  },
+ 
+];
+const discovered = new Set();
+let activeMemory = 0;
+let animationId = null;
+let resizeTimer = null;
+let particles = [];
+
+function safeImageSource(path) {
+  if (!path || !/^assets\/[a-zA-Z0-9_.-]+$/.test(path)) {
+    return "";
+  }
+  return path;
+}
+
+function updateProgress() {
+progress.textContent = String(discovered.size);
+if (discovered.size === stars.length) {
+  result.classList.remove("hidden");
+  instruction.textContent = "💖 You discovered every memory in this little universe!";
+  result.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+
+}
+
+function openMemory(index) {
+if (index < 0 || index >= memories.length) return;
+
+activeMemory = index;
+
+const memory = memories[index];
+
+popupTitle.textContent = memory.title;
+popupText.textContent = memory.text;
+
+const imagePath = safeImageSource(memory.image);
+
+if (imagePath) {
+  popupImage.onerror = () => {
+    popupImage.classList.add("hidden");
+    popupImage.removeAttribute("src");
+  };
+
+  popupImage.src = imagePath;
+  popupImage.classList.toggle(
+  "full-view-photo",
+  [0, 2, 4].includes(index)
+);
+  popupImage.classList.remove("hidden");
+} else {
+  popupImage.classList.add("hidden");
+  popupImage.removeAttribute("src");
+}
+
+popup.classList.remove("hidden");
+document.body.style.overflow = "hidden";
+
+closeButton.focus();
+
+}
+
+function closeMemory() {
+popup.classList.add("hidden");
+document.body.style.overflow = "";
+}
+
+stars.forEach((star, index) => {
+star.addEventListener("click", () => {
+discovered.add(index);
+star.classList.add("discovered");
+
+  updateProgress();
+  openMemory(index);
+});
+
+});
+
+closeButton.addEventListener("click", closeMemory);
+
+popup.addEventListener("click", event => {
+if (event.target === popup) {
+closeMemory();
+}
+});
+
+document.addEventListener("keydown", event => {
+if (event.key === "Escape" && !popup.classList.contains("hidden")) {
+closeMemory();
+}
+});
+
+nextButton.addEventListener("click", () => {
+closeMemory();
+const nextUndiscovered = stars.findIndex(
+  (star, index) => !discovered.has(index)
+);
+
+if (nextUndiscovered !== -1) {
+  stars[nextUndiscovered].focus();
+  openMemory(nextUndiscovered);
+} else {
+  result.classList.remove("hidden");
+  result.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+});
+
+/*
+Animated background stars and constellation lines.
+*/
+
+function resizeCanvas() {
+const rect = canvas.getBoundingClientRect();
+const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+canvas.width = Math.max(1, Math.round(rect.width * dpr));
+canvas.height = Math.max(1, Math.round(rect.height * dpr));
+
+ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+particles = Array.from({ length: 65 }, () => ({
+  x: Math.random() * rect.width,
+  y: Math.random() * rect.height,
+  radius: Math.random() * 1.5 + 0.3,
+  alpha: Math.random() * 0.65 + 0.2,
+  speed: Math.random() * 0.012 + 0.003
+}));
+
+}
+
+function getStarCenter(element) {
+const canvasRect = canvas.getBoundingClientRect();
+const starRect = element.getBoundingClientRect();
+
+return {
+  x: starRect.left + starRect.width / 2 - canvasRect.left,
+  y: starRect.top + starRect.height / 2 - canvasRect.top
+};
+
+}
+
+function drawConstellation() {
+if (!galaxy.isConnected) return;
+
+const rect = canvas.getBoundingClientRect();
+
+ctx.clearRect(0, 0, rect.width, rect.height);
+
+// Background galaxy particles.
+for (const particle of particles) {
+  particle.alpha += particle.speed;
+
+  const opacity = 0.18 + Math.abs(Math.sin(particle.alpha)) * 0.65;
+
+  ctx.beginPath();
+  ctx.fillStyle = `rgba(225, 196, 255, ${opacity})`;
+  ctx.arc(
+    particle.x,
+    particle.y,
+    particle.radius,
+    0,
+    Math.PI * 2
+  );
+  ctx.fill();
+}
+
+// Connect only the stars that have been discovered.
+const discoveredStars = stars
+  .map((element, index) => ({
+    index,
+    element,
+    point: getStarCenter(element)
+  }))
+  .filter(item => discovered.has(item.index));
+
+if (discoveredStars.length > 1) {
+  ctx.save();
+  ctx.strokeStyle = "rgba(240, 177, 255, 0.8)";
+  ctx.lineWidth = 1.6;
+  ctx.shadowColor = "#d77cff";
+  ctx.shadowBlur = 10;
+
+  ctx.beginPath();
+
+  discoveredStars.forEach((item, index) => {
+    if (index === 0) {
+      ctx.moveTo(item.point.x, item.point.y);
+    } else {
+      ctx.lineTo(item.point.x, item.point.y);
+    }
+  });
+
+  if (discovered.size === stars.length) {
+    // Connect all discovered stars into a heart-like outline.
+    ctx.lineTo(
+      discoveredStars[0].point.x,
+      discoveredStars[0].point.y
+    );
+  }
+
+  ctx.stroke();
+  ctx.restore();
+}
+
+animationId = requestAnimationFrame(drawConstellation);
+
+}
+
+function handleResize() {
+clearTimeout(resizeTimer);
+resizeTimer = setTimeout(() => {
+  resizeCanvas();
+}, 120);
+
+}
+
+resizeCanvas();
+drawConstellation();
+
+window.addEventListener("resize", handleResize);
+
+// Pause canvas work when the section is removed from the page.
+window.addEventListener("pagehide", () => {
+if (animationId !== null) {
+cancelAnimationFrame(animationId);
+}
+
+window.removeEventListener("resize", handleResize);
+
+}, { once: true });
+})();
